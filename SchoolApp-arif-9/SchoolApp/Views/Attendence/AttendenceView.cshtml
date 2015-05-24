@@ -1,0 +1,32 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Student
+
+@{
+    ViewBag.Title = "AttendenceView";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                <header class="panel-heading">
+                    Noticeboard
+                </header>
+                <table class="table table-bordered" id="example" class="display">
+                    <thead>
+                        <tr class="success"><td>Name</td> <td>Roll</td><td>Total Attendence</td><td>Detail</td></tr>
+                    </thead>
+                    <tbody>
+                        @{
+                           Student aStudent = new Student();
+                           aStudent = (Student) ViewBag.StudentInfo;
+                            <tr><td>@aStudent.StudentName</td><td>@aStudent.RollNumber</td><td>@ViewBag.AttendentCount</td><td><a href="@Url.Action("AttendenceViewDetail", "Attendence", new{stuid=@aStudent.StudentId, classid=@aStudent.ClassId})" class="btn btn-primary">Details</a></td></tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </div>
+</div>

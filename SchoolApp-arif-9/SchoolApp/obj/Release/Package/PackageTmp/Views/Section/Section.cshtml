@@ -1,0 +1,66 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Section
+
+@{
+    ViewBag.Title = "Section";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue ">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#home">Section List</a>
+                    </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#about">Add New Section</a>
+                    </li>
+                </ul>
+            </header>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+                        <table class="table table-bordered">
+                            <tr class="success"><td>Section Name</td><td>Action</td></tr>
+                            @{
+                                List<Section> sectionList = new List<Section>();
+                                sectionList = (List<Section>) ViewBag.SectionList;
+                                foreach (Section aSection in sectionList)
+                                {
+                                    <tr><td><h5>@aSection.SectionName</h5></td><td><a href="@Url.Action("EditSection", "Section", new{secid=@aSection.SectionId})" class="btn btn-default">Edit</a></td></tr>
+                                }
+                            }
+                        </table>
+                        @ViewBag.SaveSection
+                    </div>
+                    <div id="about" class="tab-pane">
+                        <header class="panel-heading">
+                            Add New Class
+                        </header>
+                        <div class="panel-body">
+                            @using (Html.BeginForm("Section", "Section", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                            {
+                                <div class="form-horizontal" role="form">
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SectionName, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.SectionName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.SectionName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <input type="submit" name="submit" value="submit" class="btn btn-primary" />
+                                </div>
+                            }
+                            <div class="col-lg-8">@ViewBag.SaveSection</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

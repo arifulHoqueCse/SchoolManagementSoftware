@@ -1,0 +1,102 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.ExamGrade
+@{
+    ViewBag.Title = "ExamGrade";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue ">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#home">Grade List</a>
+                    </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#about">Add New</a>
+                    </li>
+                </ul>
+            </header>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+                        <table class="table table-bordered" class="display">
+                            <thead>
+                                <tr class="success"><td>Letter Grade</td><td>Grade Point</td><td>Numerical Grade</td><td>Action</td></tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr class="success"><td>Letter Grade</td><td>Grade Point</td><td>Numerical Grade</td><td>Action</td></tr>
+                            </tfoot>
+                            <tbody>
+                                @{
+                                    List<ExamGrade> aExamGradeList = new List<ExamGrade>();
+                                    aExamGradeList = (List<ExamGrade>) ViewBag.ExamGradeList;
+                                    foreach (ExamGrade aExamGrade in aExamGradeList)
+                                    {
+                                        <tr><td>@aExamGrade.GradeName</td><td>@aExamGrade.GradePoint</td><td>@aExamGrade.MarkFrom to @aExamGrade.MarkUpTo</td><td>Action</td></tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        @ViewBag.SaveAlert
+                    </div>
+                    <div id="about" class="tab-pane">
+                        <header class="panel-heading">
+                            Manage Exam Grade
+                        </header>
+                        <div class="panel-body">
+                            @using (Html.BeginForm("ExamGrade", "Exam", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                            {
+                                <div class="form-horizontal" role="form">
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GradeName, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.GradeName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.GradeName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GradePoint, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.GradePoint, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.GradePoint, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MarkFrom, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.MarkFrom, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.MarkFrom, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MarkUpTo, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.MarkUpTo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.MarkUpTo, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Comment, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.Comment, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <input type="submit" name="submit" value="submit" />
+                                </div>
+                            }
+                            <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

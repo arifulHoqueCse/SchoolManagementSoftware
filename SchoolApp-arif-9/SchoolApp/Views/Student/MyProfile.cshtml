@@ -1,0 +1,59 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Student
+
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+@{
+    Student aStudent = new Student();
+    aStudent = (Student)ViewBag.SpecificStudent;
+
+}
+<section class="panel">
+    <div class="panel-body bio-graph-info">
+        <h1>Bio Graph</h1>
+        <div class="row">
+            <div class="bio-row">
+                <p><span>First Name </span>: @aStudent.StudentName</p>
+            </div>
+
+            <div class="bio-row">
+                <p><span>Father Name </span>: @aStudent.FatherName</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Mother Name</span>: @aStudent.MotherName</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Reg No </span>: @aStudent.RegNo</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Roll Number </span>: @aStudent.RollNumber</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Birthday </span>: @aStudent.Birthday</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Mobile Number </span>: @aStudent.PhoneNumber</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Sex </span>: @aStudent.Sex</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Religion </span>: @aStudent.Religion</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Blood Group </span>: @aStudent.BloodGroup</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Contact Address </span>: @aStudent.ContactAddress</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Email </span>: @aStudent.Email</p>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+

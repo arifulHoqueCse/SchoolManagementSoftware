@@ -1,0 +1,49 @@
+﻿@using SchoolApp.Models.View
+@model SchoolApp.Models.View.HomeWorkView
+
+@{
+    ViewBag.Title = "HomeWorkDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+           
+            <div class="panel-body">
+                <div class="tab-content">
+                    @{
+                        HomeWorkView aHomeWorkView = new HomeWorkView();
+                        aHomeWorkView = (HomeWorkView)ViewBag.HomeWork;
+                    }
+                    <p>
+                        <b>Subject name : </b> @aHomeWorkView.Title
+                    </p>
+                    <br>
+                    <p>
+                        <b>Teacher Name : </b> @aHomeWorkView.TeacherName
+                    </p>
+                    <br>
+                    <p>
+                        <b>Submission Date : </b> @aHomeWorkView.SubmissionDate
+                    </p>
+                    <br>
+                    <p>
+                        <b>Class Name : </b> @aHomeWorkView.ClassName
+                    </p>
+
+                    <br>
+                    <p>
+                        <b>Section Name : </b> @aHomeWorkView.SectionName
+                    </p>
+
+                        <br>
+                    <p><b>Description :</b> </p>
+                    <p>@aHomeWorkView.Description</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

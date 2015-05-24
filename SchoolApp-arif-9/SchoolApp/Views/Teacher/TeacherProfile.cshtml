@@ -1,0 +1,206 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Teacher
+
+@{
+    ViewBag.Title = "TeacherProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    Teacher aTeacher = new Teacher();
+    aTeacher = (Teacher)ViewBag.SpecificTeacher;
+
+}
+<div class="row">
+    <aside class="profile-nav col-lg-3">
+        <section class="panel">
+            <div class="user-heading round">
+                <a href="#">
+                    <img src="../../Teacherprofile/@aTeacher.ImagePath" alt="">
+                </a>
+                <h1>@Html.Label(aTeacher.TeacherName)</h1>
+                <p>@Html.Label(aTeacher.PhoneNumber)</p>
+            </div>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="@Url.Action("TeacherProfile", "Teacher")"> <i class="icon-dashboard"></i> My Dashboard</a></li>
+                <li class="active"><a href="@Url.Action("MyProfile", "Teacher")"> <i class="icon-user"></i> My Profile</a></li>
+                <li><a href="@Url.Action("EditTeacher", "Teacher", new { id = @aTeacher.TeacherId })"> <i class="icon-edit"></i> Edit profile</a></li>
+            </ul>
+        </section>
+    </aside>
+    <aside class="profile-info col-lg-9">
+
+        <div class="row state-overview">
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel">
+                    <div class="symbol red">
+                        <a href="@Url.Action("Index", "Teacher")">
+                            <img src="../img/icon-teacher.png" alt="" width="40" height="40">
+                        </a>
+                    </div>
+                    <div class="value">
+                        <h4>Teacher</h4>
+                        <p>
+                            List
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel">
+                    <div class="symbol terques">
+                        <a href="@Url.Action("Routine", "ClassRoutine")">
+                            <img src="../img/icon-shedule.png" alt="" width="40" height="40">
+                        </a>
+                    </div>
+                    <div class="value">
+                        <h4>Routine</h4>
+                        <p>
+                            View
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel">
+                    <div class="symbol red">
+                        <a href="@Url.Action("Exam", "Exam")">
+                            <img src="../img/icon-exam.png" alt="" width="40" height="40">
+                        </a>
+                    </div>
+                    <div class="value">
+                        <h4>Exam</h4>
+                        <p>
+                            Routine
+                        </p>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel">
+                    <div class="symbol terques">
+                        <a href="@Url.Action("Ebook", "EBook")">
+                            <img src="../img/icon-ebook.png" alt="" width="40" height="40">
+                        </a>
+                    </div>
+                    <div class="value">
+                        <h4>E Book</h4>
+                        <p>
+                            List
+                        </p>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel">
+                    <div class="symbol red">
+                        <a href="@Url.Action("Index", "Book")">
+                            <img src="../img/icon-book.png" alt="" width="40" height="40">
+                        </a>
+                    </div>
+                    <div class="value">
+                        <h4>Book</h4>
+                        <p>
+                            List
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel">
+                    <div class="symbol terques">
+                        <a href="@Url.Action("Email", "Teacher")">
+                            <img src="../img/icon-email.png" alt="" width="40" height="40">
+                        </a>
+
+                    </div>
+                    <div class="value">
+                        <h4>Email</h4>
+                        <p>
+                            To Student
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel">
+                    <div class="symbol red">
+                        <a href="@Url.Action("Notice", "Notice")">
+                            <img src="../img/icon-noticeboard.png" alt="" width="40" height="40">
+                        </a>
+                    </div>
+                    <div class="value">
+                        <h4>Notice</h4>
+                        <p>
+                            List
+                        </p>
+
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel">
+                    <div class="symbol terques">
+                        <a href="@Url.Action("Index", "Student")">
+                            <img src="../img/icon-student.png" alt="" width="40" height="40">
+                        </a>
+                    </div>
+                    <div class="value">
+                        <h4>Student</h4>
+                        <p>
+                            Management
+                        </p>
+
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel">
+                    <div class="symbol red">
+                        <a href="@Url.Action("HomeWork", "Teacher")">
+                            <i class="icon-home"></i>
+                        </a>
+                    </div>
+                    <div class="value">
+                        <h4>Home Work</h4>
+                        <p>
+                           For Students
+                        </p>
+
+                    </div>
+                </section>
+            </div>
+
+
+        </div>
+        
+
+
+
+    </aside>
+</div>
+<!-- page end-->
+<!-- js placed at the end of the document so the pages load faster -->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="js/jquery.scrollTo.min.js"></script>
+<script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+<script src="assets/jquery-knob/js/jquery.knob.js"></script>
+<script src="js/respond.min.js"></script>
+<!--common script for all pages-->
+<script src="js/common-scripts.js"></script>
+<script>
+
+    //knob
+    $(".knob").knob();
+
+</script>
+

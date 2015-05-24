@@ -1,0 +1,57 @@
+﻿@using SchoolApp.Models
+@using SchoolApp.Models.DbGateway
+@model SchoolApp.Models.Student
+
+@{
+    ViewBag.Title = "ClassReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                <header class="panel-heading">
+                    Book Information
+                </header>
+                <table class="table table-bordered" id="example" class="display">
+                    <thead>
+                        <tr class="success"><td>Student Roll</td><td>Student Name</td><td>Total Present</td><td>Deatils</td></tr>
+                    </thead>
+                    @{
+                        AttendenceDbGateway attendenceDbGateway = new AttendenceDbGateway();
+                        List<Student> studentList = new List<Student>();
+                        studentList = (List<Student>) ViewBag.StudentList;
+                        foreach (Student student in studentList)
+                        {
+                            int studentid = student.StudentId;
+                            int studentclassid = student.ClassId;
+                            int totalpresent = attendenceDbGateway.CountPresentStatus(studentid, studentclassid);
+                            <tr><td>@student.RollNumber</td><td>@student.StudentName</td><td>@totalpresent.ToString()</td><td><a href="@Url.Action("AttendenceDetails", "Attendence", new{stuid=@student.StudentId, classid=@student.ClassId, sectionid = @student.SectionId})">Details</a></td></tr>
+                        }
+                    }
+                    <tr><td></td></tr>
+                    <tfoot>
+                        <tr class="success"><td>Student Roll</td><td>Student Name</td><td>Total Present</td><td>Details</td></tr>
+                    </tfoot>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </div>
+</div>
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+}
+

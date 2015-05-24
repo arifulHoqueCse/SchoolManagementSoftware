@@ -1,0 +1,85 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.View.EBookUpdate
+
+@{
+    ViewBag.Title = "EditEBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+
+            <div class="panel-body">
+                @using (Html.BeginForm("UpdateEBookData", "EBook", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                {
+                    EBook aEBook = (EBook)ViewBag.EditEBookInfo;
+                    <div class="form-horizontal" role="form">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @Value = aEBook.Name })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.BookDescription, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextAreaFor(m => m.BookDescription, new { @class = "form-control", @Value = aEBook.BookDescription })
+                                @Html.ValidationMessageFor(model => model.BookDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Author, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.Author, new { @class = "form-control", @Value = aEBook.Author })
+                                @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ClassId, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                <select name="classid" class="form-control">
+                                    @{
+                    List<Class> aClassList = new List<Class>();
+                    aClassList = (List<Class>)ViewBag.ClassList;
+                    foreach (Class aClass in aClassList)
+                    {
+                        <option value="@aClass.ClassId">@aClass.Name</option>
+                    }
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.EbookFileName, new { @class = "col-md-2 control-label" })
+                            <div class="fileupload fileupload-new col-lg-5" data-provides="fileupload">
+                                <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                    <img src="../../Teacherprofile/@aEBook.EbookFileName" alt="" />
+                                </div>
+                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                <div>
+                                    <span class="btn btn-white btn-file">
+                                        <span class="fileupload-new"><i class="icon-paper-clip"></i> Select File</span>
+                                        <span class="fileupload-exists"><i class="icon-undo"></i> Change</span>
+                                        <input type="file" name="file" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="submit" name="submit" value="submit" />
+                    </div>
+                }
+                <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+            </div>
+
+        </section>
+    </div>
+</div>
+

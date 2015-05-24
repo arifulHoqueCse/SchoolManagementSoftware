@@ -1,0 +1,216 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Student
+
+@{
+    ViewBag.Title = "EditStudent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Update Student Data
+            </header>
+            <div class="panel-body">
+                @using (Html.BeginForm("UpdateStudent", "Student", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                {
+                    <div class="form-horizontal" role="form">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @{
+                            Student aStudent = new Student();
+                            aStudent = (Student) ViewBag.Student;
+                        }
+                        @Html.HiddenFor(m=>m.StudentId, new{@Value=aStudent.StudentId})
+                        @Html.HiddenFor(m=>m.SchoolId, new{@Value=aStudent.SchoolId})
+                        @Html.HiddenFor(m=>m.ClassId, new{@Value=aStudent.ClassId})
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.StudentName, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.StudentName, new { @class = "form-control", @Value = aStudent.StudentName })
+                                @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.FatherName, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.FatherName, new { @class = "form-control", @Value = aStudent.FatherName})
+                                @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger", @Value=aStudent.FatherName})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.MotherName, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.MotherName, new { @class = "form-control", @Value = aStudent.MotherName})
+                                @Html.ValidationMessageFor(model => model.MotherName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.RegNo, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.RegNo, new { @class = "form-control", @Value = aStudent.RegNo })
+                                @Html.ValidationMessageFor(model => model.RegNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.RollNumber, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.RollNumber, new { @class = "form-control", @Value = aStudent.RollNumber })
+                                @Html.ValidationMessageFor(model => model.RollNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Birth Date</label>
+                            <div class="col-md-3 col-xs-11">
+                                <div data-date-viewmode="years" data-date-format="dd/mm/yyyy" data-date="12-02-2012" class="input-append date dpYears">
+                                    <input type="text" readonly="" size="16" class="form-control" name="birthday" id="birthday" value="@aStudent.Birthday" required>
+                                    <span class="input-group-btn add-on">
+                                        <button class="btn btn-danger" type="button"><i class="icon-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Sex, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-4">
+                                <select id="sex" name="sex" class="form-control">
+                                    <option value="0">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Religion, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.Religion, new { @class = "form-control", @Value = aStudent.Religion })
+                                @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.BloodGroup, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-3">
+                                <select name="bloodgroup" class="form-control" id="bloodgroup">
+                                    <option value="0">Select</option>
+                                    <option value="O+">O+</option>
+                                    <option value="A+">A+</option>
+                                    <option value="B+">B+</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactAddress, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.ContactAddress, new { @class = "form-control", @Value = aStudent.ContactAddress })
+                                @Html.ValidationMessageFor(model => model.ContactAddress, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @Value = aStudent.PhoneNumber })
+                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @Value = aStudent.Email })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @Value = aStudent.Password })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ClassId, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                <select name="classid" class="form-control" id="classid">
+                                    <option>Select</option>
+                                    @{
+                            List<Class> aClassList = new List<Class>();
+                            aClassList = (List<Class>)ViewBag.ClassList;
+                            foreach (Class aClass in aClassList)
+                            {
+                                <option value="@aClass.ClassId">@aClass.Name</option>
+                            }
+                                    }
+                                </select>
+
+                                @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ClassId, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5" id="sectionid">
+
+                                @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ImagePath, new { @class = "col-md-2 control-label" })
+                            <div class="fileupload fileupload-new col-lg-5" data-provides="fileupload">
+                                <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                    <img src="../../Studentpicture/@aStudent.ImagePath" alt="" />
+                                </div>
+                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                <div>
+                                    <span class="btn btn-white btn-file">
+                                        <span class="fileupload-new"><i class="icon-paper-clip"></i> Select image</span>
+                                        <span class="fileupload-exists"><i class="icon-undo"></i> Change</span>
+                                        <input type="file" name="file" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="schoolid" value="@Session["school_id2133"]" />
+                        <input type="submit" name="submit" value="submit" />
+                    </div>
+                }
+                <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+            </div>
+        </section>
+    </div>
+</div>
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#classid').change(function() {
+                var classid = $('#classid').val();
+                var schoolid = $('#schoolid').val();
+                var mydata = { classid: classid, schoolid: schoolid };
+                $('#sectionid').html("");
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetTheSection", "Section")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(mydata),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != null) {
+                            $(data).each(function (key, value) {
+                                $('#sectionid').append('<label class="radio-inline"><input type="radio" name="sectionid" value="' + value.SectionId + '">' + value.SectionName + '</label>');
+                            });
+                        }
+                    },
+                });
+            });
+            $('#example').DataTable();
+        });
+    </script>
+}
+

@@ -1,0 +1,115 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.ExamRoutine
+
+@{
+    ViewBag.Title = "EditExamRoutine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+           
+            <div class="panel-body">
+                <div class="tab-content">
+                   
+                        <div class="panel-body">
+                            @using (Html.BeginForm("UpdateExamRoutine", "Exam", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                            {
+                                ExamRoutine aExamRoutine = (ExamRoutine)ViewBag.ExamRoutineInfo;
+                                <div class="form-horizontal" role="form">
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ExamTitle, new { @class = "col-md-2 control-label",@aExamRoutine.ExamTitle })
+                                        <div class="col-lg-5">
+                                            <select name="examtitle" class="form-control">
+                                                @{
+                                List<Exam> aExamList = new List<Exam>();
+                                aExamList = (List<Exam>)ViewBag.ExamList;
+                                foreach (Exam aExam in aExamList)
+                                {
+                                    <option value="@aExam.Name">@aExam.Name</option>
+                                }
+                                                }
+                                            </select>
+
+                                            @Html.ValidationMessageFor(model => model.ExamTitle, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ClassId, new { @class = "col-md-2 control-label",@aExamRoutine.ClassId })
+                                        <div class="col-lg-5">
+                                            <select name="classid" class="form-control">
+                                                @{
+                                List<Class> aClassList = new List<Class>();
+                                aClassList = (List<Class>)ViewBag.ClassList;
+                                foreach (Class aClass in aClassList)
+                                {
+                                    <option value="@aClass.ClassId">@aClass.Name</option>
+                                }
+                                                }
+                                            </select>
+
+                                            @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SubjectName, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.SubjectName, new { @class = "form-control", @Value = @aExamRoutine.SubjectName  })
+                                            @Html.ValidationMessageFor(model => model.SubjectName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Exam Date</label>
+                                        <div class="col-md-3 col-xs-11">
+                                            <div data-date-viewmode="years" data-date-format="dd/mm/yyyy" data-date="12-02-2012" class="input-append date dpYears">
+                                                <input type="text" readonly="" size="16" class="form-control" name="examdate" id="examdate" required>
+                                                <span class="input-group-btn add-on">
+                                                    <button class="btn btn-danger" type="button"><i class="icon-calendar"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ExamDay, new { @class = "col-md-2 control-label" ,@aExamRoutine.ExamDay})
+                                        <div class="col-lg-4">
+                                            <select id="examday" name="examday" class="form-control">
+                                                <option value="Saturday">Saturday</option>
+                                                <option value="Sunday">Sunday</option>
+                                                <option value="Monday">Monday</option>
+                                                <option value="Tuesday">Tuesday</option>
+                                                <option value="Wednesday">Wednesday</option>
+                                                <option value="Thursday">Thursday</option>
+                                                <option value="Friday">Friday</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ExamTime, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.ExamTime, new { @class = "form-control",@aExamRoutine.ExamTime })
+                                            @Html.ValidationMessageFor(model => model.ExamTime, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="hidden">
+                                        @Html.LabelFor(m => m.Id, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @aExamRoutine.Id })
+                                            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <input type="submit" name="submit" value="submit" class="btn btn-primary" />
+                                </div>
+                            }
+                           
+                        </div>
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

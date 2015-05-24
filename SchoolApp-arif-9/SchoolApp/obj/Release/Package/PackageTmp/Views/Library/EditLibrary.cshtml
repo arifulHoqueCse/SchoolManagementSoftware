@@ -1,0 +1,90 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Library
+
+@{
+    ViewBag.Title = "EditLibrary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+
+
+
+            <div class="panel-body">
+                @using (Html.BeginForm("UpdateLibraryData", "Library", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                {
+                    Library aLibrary = (Library)ViewBag.EditLibraryInfo;
+                    <div class="form-horizontal" role="form">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.StudentName, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.StudentName, new { @class = "form-control", @Value = aLibrary.StudentName })
+                                @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Class, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.Class, new { @class = "form-control", @Value = aLibrary.Class })
+                                @Html.ValidationMessageFor(model => model.Class, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.StudentReg, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.StudentReg, new { @class = "form-control", @Value = aLibrary.StudentReg })
+                                @Html.ValidationMessageFor(model => model.StudentReg, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.StudentRoll, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.StudentRoll, new { @class = "form-control", @Value = aLibrary.StudentRoll })
+                                @Html.ValidationMessageFor(model => model.StudentRoll, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.BookName, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.BookName, new { @class = "form-control", @Value = aLibrary.BookName })
+                                @Html.ValidationMessageFor(model => model.BookName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AuthorName, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.AuthorName, new { @class = "form-control", @Value = aLibrary.AuthorName })
+                                @Html.ValidationMessageFor(model => model.StudentRoll, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Id, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @Value = aLibrary.Id })
+                                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                      
+
+                        <input type="submit" name="submit" value="submit" />
+                    </div>
+                }
+                <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+            </div>
+
+        </section>
+    </div>
+</div>
+

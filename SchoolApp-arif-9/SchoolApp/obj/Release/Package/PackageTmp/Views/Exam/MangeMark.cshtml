@@ -1,0 +1,36 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Class
+
+@{
+    ViewBag.Title = "MangeMark";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <div class="panel-body">
+            <div class="panel-body">
+                <div class="row state-overview">
+                    @{
+                        List<Class> aClasseList = new List<Class>();
+                        aClasseList = (List<Class>)ViewBag.ClassList;
+                        foreach (Class aClass in aClasseList)
+                        {
+                            <div class="col-lg-3 col-sm-6">
+                                <section class="panel">
+                                    <div class="symbol terques">
+                                        <i class="icon-user"></i>
+                                    </div>
+                                    <div class="value">
+                                        <a href="@Url.Action("ClassStudent", "Exam", new { classid = @aClass.ClassId })" class="btn btn-primary">@aClass.Name Mark</a>
+                                    </div>
+                                </section>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

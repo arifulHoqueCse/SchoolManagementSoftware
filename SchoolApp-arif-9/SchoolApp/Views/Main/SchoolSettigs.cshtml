@@ -1,0 +1,56 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.School
+
+@{
+    ViewBag.Title = "SchoolSettigs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                School Information Settings
+            </header>
+            <div class="panel-body">
+                @using (Html.BeginForm("SchoolSettigs", "Main", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                {
+                    School aSchool = (School)ViewBag.SchoolAbout;
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal" role="form">
+                        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.SchoolName, new {@class = "col-md-2 control-label"})
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.SchoolName, new {@class = "form-control", @Value = aSchool.SchoolName})
+                                @Html.ValidationMessageFor(model => model.SchoolName, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                    </div>
+                    @Html.HiddenFor(m=>m.SchoolId, new{@Value = aSchool.SchoolId})
+                    <div class="form-horizontal" role="form">
+                        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.SchoolAddress, new {@class = "col-md-2 control-label"})
+                            <div class="col-lg-5">
+                                @Html.TextAreaFor(m => m.SchoolAddress, new {@class = "form-control", @Value = aSchool.SchoolAddress})
+                                @Html.ValidationMessageFor(model => model.SchoolAddress, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </div>
+                }
+                <div class="alert-success">@ViewBag.UpdateSchoolSettings</div>
+               
+            </div>
+           
+        </section>
+    </div>
+</div>
+
+
+

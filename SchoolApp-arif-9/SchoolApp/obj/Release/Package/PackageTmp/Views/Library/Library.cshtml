@@ -1,0 +1,146 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Library
+
+@{
+    ViewBag.Title = "Library";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue ">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#home">Book Allotment List</a>
+                    </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#about">Add New</a>
+                    </li>
+                </ul>
+            </header>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+                        
+                        <table class="table table-bordered" id="example" class="display">
+                            <thead>
+                                <tr class="success"><td>Student Name</td><td>Class</td><td>Registration Number</td><td>Roll Number</td><td>Book Name</td><td>Author Name</td><td>Action</td></tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr class="success"><td>Student Name</td><td>Class</td><td>Registration Number</td><td>Roll Number</td><td>Book Name</td><td>Author Name</td><td>Action</td></tr>
+                            </tfoot>
+                            <tbody>
+
+                                @{
+                                    List<Library> aLibraryList = (List<Library>)ViewBag.LibraryList;
+
+                                    foreach (Library library in aLibraryList)
+                                    {
+                                        <tr>
+                                            <td>@library.StudentName</td>
+                                            <td>@library.Class</td>
+                                            <td>@library.StudentReg</td>
+                                            <td>@library.StudentRoll</td>
+                                            <td>@library.BookName</td>
+                                            <td>@library.AuthorName</td>
+
+
+
+                                            <td>
+                                                <a href="@Url.Action("EditLibrary", "Library", new { id = @library.Id })">Edit</a> / <a href="@Url.Action("DeleteLibraryData", "Library", new { stuid = @library.Id })">Delete</a>
+                                            </td>
+
+                                        </tr>
+
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                      
+
+                    </div>
+                    <div id="about" class="tab-pane">
+                        <header class="panel-heading">
+                            New Employee Entry Form
+                        </header>
+                        <div class="panel-body">
+                            @using (Html.BeginForm("Library", "Library", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                            {
+                                <div class="form-horizontal" role="form">
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.StudentName, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.StudentName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Class, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.Class, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Class, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.StudentReg, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.StudentReg, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.StudentReg, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.StudentRoll, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.StudentRoll, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.StudentRoll, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BookName, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.BookName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.BookName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AuthorName, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.AuthorName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.AuthorName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                  
+                                  
+                                    <input type="submit" name="submit" value="submit" />
+                                </div>
+                            }
+                            <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+}

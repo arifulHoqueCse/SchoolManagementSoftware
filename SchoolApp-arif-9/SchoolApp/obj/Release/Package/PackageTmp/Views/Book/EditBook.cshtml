@@ -1,0 +1,101 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Book
+
+@{
+    ViewBag.Title = "EditBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+                                              
+                        <div class="panel-body">
+                            @using (Html.BeginForm("UpdateBookData", "Book", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                            {
+                                Book aBook = (Book)ViewBag.EditBookInfo;
+                                <div class="form-horizontal" role="form">
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.name, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.name, new { @class = "form-control", @Value = aBook.name })
+                                            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BookDescription, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextAreaFor(m => m.BookDescription, new { @class = "form-control", @Value = aBook.BookDescription })
+                                            @Html.ValidationMessageFor(model => model.BookDescription, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AuthorName, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.AuthorName, new { @class = "form-control", @Value = aBook.AuthorName })
+                                            @Html.ValidationMessageFor(model => model.AuthorName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BookStatus, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            <select name="bookstatus" class="form-control">
+                                                <option value="1">Available</option>
+                                                <option value="0">Unavailable </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Price, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.Price, new { @class = "form-control", @Value = aBook.Price })
+                                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Ssbn, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.Ssbn, new { @class = "form-control", @Value = aBook.Ssbn })
+                                            @Html.ValidationMessageFor(model => model.Ssbn, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ClassId, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            <select name="classid" class="form-control">
+                                                @{
+                                List<Class> aClassList = new List<Class>();
+                                aClassList = (List<Class>)ViewBag.ClassList;
+                                foreach (Class aClass in aClassList)
+                                {
+                                    <option value="@aClass.ClassId">@aClass.Name</option>
+                                }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden">
+                                        @Html.LabelFor(m => m.BookId, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.BookId, new { @class = "form-control", @Value = aBook.BookId })
+                                            @Html.ValidationMessageFor(model => model.BookId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <input type="submit" name="submit" value="submit" />
+                                </div>
+                            }
+                            <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+                        </div>
+                
+        </section>
+    </div>
+</div>
+

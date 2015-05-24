@@ -1,0 +1,100 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Student
+
+@{
+    ViewBag.Title = "StudentCv";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    Student aStudent = new Student();
+    aStudent = (Student)ViewBag.SpecificStudent;
+
+}
+
+<h4>Cv Of @aStudent.StudentName</h4>
+
+<script language="JavaScript">
+    function printSpecial() {
+        var prtContent = document.getElementById("some");
+        var WinPrint = window.open('', '', 'left=0,top=0,width=400,height=900,toolbar=0,scrollbars=0,status=0');
+        WinPrint.document.write(prtContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+    }
+
+</script> 
+    <div class="ProfileCv">
+        <div id="some">
+            <img style="height: 200px;width: 200px" src="../../Studentpicture/@aStudent.ImagePath" alt="">
+            <br /><br /><br /><br /><br />
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><span>:</span>@aStudent.StudentName</td>
+                </tr>
+                <tr>
+                    <td>Father's Name</td>
+                    <td><span>:</span>@aStudent.FatherName</td>
+                </tr>
+                <tr>
+                    <td>Mother Name</td>
+                    <td><span>:</span>@aStudent.MotherName</td>
+                </tr>
+
+                <tr>
+                    <td>Registration Number</td>
+                    <td><span>:</span>@aStudent.RegNo</td>
+                </tr>
+                <tr>
+                    <td>Roll Number</td>
+                    <td><span>:</span>@aStudent.RollNumber</td>
+                </tr>
+                <tr>
+                    <td>Class</td>
+                    <td><span>:</span>@aStudent.ClassId</td>
+                </tr>
+                <tr>
+                    <td>Date Of Birth</td>
+                    <td><span>:</span>@aStudent.Birthday</td>
+                </tr>
+                <tr>
+                    <td>Sex</td>
+                    <td><span>:</span>@aStudent.Sex</td>
+                </tr>
+                <tr>
+                    <td>Religion</td>
+                    <td><span>:</span>@aStudent.Religion</td>
+                </tr>
+                <tr>
+                    <td>Blood Group</td>
+                    <td><span>:</span>@aStudent.BloodGroup</td>
+                </tr>
+                <tr>
+                    <td>Contact Address</td>
+                    <td><span>:</span>@aStudent.ContactAddress</td>
+                </tr>
+                <tr>
+                    <td>Phone Number</td>
+                    <td><span>:</span>@aStudent.PhoneNumber</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><span>:</span>@aStudent.Email</td>
+                </tr>
+
+            </table>
+        </div>
+
+
+            <div class="text-center invoice-btn">
+                <a class="btn btn-info btn-lg" href="@Url.Action("StudentCvPrint", "Student", new { id = aStudent.StudentId })">Download</a>
+
+                <a class="btn btn-info btn-lg" href = "javascript:void(printSpecial())"><i class="icon-print"></i> Print </a>
+            </div>
+
+        </div>
+
+
+

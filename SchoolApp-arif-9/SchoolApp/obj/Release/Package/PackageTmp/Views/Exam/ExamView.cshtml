@@ -1,0 +1,52 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Exam
+
+@{
+    ViewBag.Title = "ExamView";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                <header class="panel-heading">
+                   Exam Information
+                </header>
+                <table class="table">
+
+                    <tr class="success"><td>Exam Name</td><td>Exam Date</td></tr>
+
+                    @{
+
+                        List<Exam> aExamList = (List<Exam>)ViewBag.ExamList;
+
+                        foreach (Exam aeExam in aExamList)
+                        {
+                            <tr>
+
+                                <td>@aeExam.Name</td>
+                                <td>@aeExam.ExamDate</td>
+                            </tr>
+
+                        }
+                    }
+                </table>
+
+
+
+            </div>
+        </section>
+    </div>
+</div>
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+}

@@ -1,0 +1,95 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Attendance
+
+@{
+    ViewBag.Title = "AttendenceShit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <div class="panel-body">
+            <div class="panel-body">
+                <section class="panel">
+                    <form name="attendence" method="POST">
+                        
+                        <table class="table table-bordered">
+                            <tr>
+                                <input type="hidden" id="classid" value="@ViewBag.ClassID"/>
+                                <input type="hidden" id="sectionid" value="@ViewBag.sectionId"/>
+                                <td colspan="2">@{DateTime saveNow = DateTime.Now; @saveNow} <input type="hidden" name="attendancedate" value="@saveNow" id="attendancedate" /></td>
+                                <td>
+                                    <select name="shiftime" id="shiftime">
+                                        <option value="Morning Shift">Morning Shift</option>
+                                        <option value="Day Shift">Day Shift</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div id="savealert"></div>
+                                </td>
+                            </tr>
+                            <tr class="success"><td>Student Name</td><td>Roll</td><td>Registration No</td><td>Status</td></tr>
+                            @{
+                                int i = 0;
+                                List<Student> aStudentList = new List<Student>();
+                                aStudentList = (List<Student>)ViewBag.StudentList;
+                                foreach (Student student in aStudentList)
+                                {
+                                    i++;
+                                    <tr>
+                                        <td>@student.StudentName</td>
+                                        <td>@student.RollNumber</td>
+                                        <td>@student.RegNo</td>
+                                        <td>
+                                            <input name="attendancestatus-@i" value="1" type="radio" id="attendancestatus-@i" class="attendancestatus-@i" data-val="@student.StudentId" /> Present
+                                            <input name="attendancestatus-@i" value="0" type="radio" id="attendancestatus-@i" class="attendancestatus-@i" data-val="@student.StudentId" /> Absent
+                                        </td>
+                                    </tr>
+                                }
+                                 <input type="hidden" name="countstudent" id="countstudent" value="@i"/>
+                            }
+                        </table>
+                        
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+@section myscript
+{
+    <script>
+        $(document).ready(function() {
+            var countstudent = $("#countstudent").val();
+            for (i = 1; i <= countstudent; i++) {
+                $(".attendancestatus-" + i).bind("click", function () {
+                    var studentid = $(this).data("val");
+                    var status = $(this).val();
+                    var attendate = $("#attendancedate").val();
+                    var shiftimes = $("#shiftime").val();
+                    var classid = $("#classid").val();
+                    var sectionid = $("#sectionid").val();
+                    //alert(shiftimes);
+                    var mydata = { studentid: studentid, status: status, attendate: attendate, shiftimes: shiftimes, classid:classid, sectionid:sectionid };
+
+                    $("#savealert").html("");
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("SaveAttendence", "Attendence")',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(mydata),
+                        dataType: "json",
+                        success: function (data) {
+                            if (data == true) {
+                                $("#savealert").append('<div class="alert-success">Attendance save</div>');
+                            } else {
+                                alert("Fail");
+                            }
+                        },
+                    });
+                });
+            }
+        });
+    </script>
+}

@@ -1,0 +1,104 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Mark
+
+@{
+    ViewBag.Title = "ManageClassMark";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue "></header>
+            <div class="panel-body">
+                <div class="tab-content">
+
+
+                    <header class="panel-heading">
+                        Exam Entry Form
+                    </header>
+                    <div class="panel-body">
+                        @using (Html.BeginForm("ManageClassMark", "Exam", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-horizontal" role="form">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(m => m.ClassId, new { @Value = ViewBag.ClassId })
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MarkObtained, new { @class = "col-md-2 control-label" })
+                                    <div class="col-lg-5">
+                                        @Html.TextBoxFor(m => m.MarkObtained, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.MarkObtained, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MarkTotal, new { @class = "col-md-2 control-label" })
+                                    <div class="col-lg-5">
+                                        @Html.TextBoxFor(m => m.MarkTotal, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.MarkTotal, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Attendence, new { @class = "col-md-2 control-label" })
+                                    <div class="col-lg-5">
+                                        @Html.TextBoxFor(m => m.Attendence, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Attendence, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                @Html.HiddenFor(m => m.StudentId, new { @Value = ViewBag.StudentList })
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.SubjectId, new { @class = "col-md-2 control-label" })
+                                    <div class="col-lg-5">
+                                        <select name="subjectid" class="form-control">
+                                            @{
+                            List<Subject> aSubjectList = new List<Subject>();
+                            aSubjectList = (List<Subject>)ViewBag.SubjectList;
+                            foreach (Subject aSubject in aSubjectList)
+                            {
+                                <option value="@aSubject.SubjectId">@aSubject.Name</option>
+                            }
+                                            }
+                                        </select>
+
+                                        @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ExamId, new { @class = "col-md-2 control-label" })
+                                    <div class="col-lg-5">
+                                        <select name="examid" class="form-control">
+                                            @{
+                            List<Exam> aExamList = new List<Exam>();
+                            aExamList = (List<Exam>)ViewBag.ExamList;
+                            foreach (Exam aExam in aExamList)
+                            {
+                                <option value="@aExam.ExamId">@aExam.Name</option>
+                            }
+                                            }
+                                        </select>
+
+                                        @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Comment, new { @class = "col-md-2 control-label" })
+                                    <div class="col-lg-5">
+                                        @Html.TextBoxFor(m => m.Comment, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <input type="submit" name="submit" value="submit" />
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+            </div>
+
+        </section>
+    </div>
+</div>
+

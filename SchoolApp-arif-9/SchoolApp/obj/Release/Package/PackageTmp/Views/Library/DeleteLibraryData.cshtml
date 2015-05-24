@@ -1,0 +1,17 @@
+﻿@model SchoolApp.Models.Library
+
+@{
+    ViewBag.Title = "DeleteLibraryData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DeleteLibraryData</h2>
+
+<div class="row">
+    <div class="panel-body">
+        <div class="alert alert-danger">
+            Are your sure delete the entry
+        </div>
+        <a href="@Url.Action("DeleteLibraryDataConfirm", "Library", new { bookid = @ViewBag.LibraryData })" class="btn btn-danger">Delete<br /></a>
+    </div>
+</div>

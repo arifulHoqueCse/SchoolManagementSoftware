@@ -1,0 +1,60 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Teacher
+
+@{
+    ViewBag.Title = "TeacherListView";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                <header class="panel-heading">
+                    Teacher Information
+                </header>
+                <table class="table table-bordered" id="example" class="display">
+                    <thead>
+                        <tr><td>Picture</td><td>Name</td><td>Email</td><td>Details</td></tr>
+                    </thead>
+
+                    <tfoot>
+                        <tr><td>Picture</td><td>Name</td><td>Email</td><td>Details</td></tr>
+                    </tfoot>
+                    <tbody>
+
+                        @{
+
+                            List<Teacher> aTeacherList = (List<Teacher>)ViewBag.TeacherList;
+
+                            foreach (Teacher teacher in aTeacherList)
+                            {
+                                <tr>
+                                    <td><img src="../../Teacherprofile/@teacher.ImagePath" width="50" height="50" class="img-circle" /></td>
+                                    <td>@teacher.TeacherName</td>
+                                    <td>@teacher.Email</td>
+                                    <td><a href="@Url.Action("TeacherCvView","Teacher", new{id=@teacher.TeacherId})" class="btn btn-primary">Details</a></td>
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </div>
+</div>
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+}
+
+

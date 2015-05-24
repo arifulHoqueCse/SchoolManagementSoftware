@@ -1,0 +1,112 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Email
+
+@{
+    ViewBag.Title = "Email";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue ">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#home">Inbox</a>
+                    </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#about">Compose Email</a>
+                    </li>
+                </ul>
+            </header>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+                        <table class="table table-bordered" id="example" class="display">
+                            <thead>
+                                <tr class="success"><td>Subject</td><td>Date</td><td>Action</td></tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    List<Email> emailList = new List<Email>();
+                                    emailList = (List<Email>)ViewBag.EmailList;
+                                    foreach (Email email in emailList)
+                                    {
+                                        <tr>
+
+                                            <td>@email.Subject</td>
+                                            <td>@email.Date</td>
+                                            <td><a href="@Url.Action("ViewTeacherEmail", "Teacher", new { id = @email.EmailId })" class="btn btn-default">Details</a> / <a href="@Url.Action("DeleteEmail", "Teacher", new { eid = @email.EmailId })" class="btn btn-danger">Delete</a></td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        @ViewBag.SaveEmail
+                    </div>
+                    <div id="about" class="tab-pane">
+                        <header class="panel-heading">
+                            Email
+                        </header>
+                        <div class="panel-body">
+                            @using (Html.BeginForm("Email", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                            {
+                                <div class="form-horizontal" role="form">
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.StudentReg, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.StudentReg, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.StudentReg, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                  
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Subject, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.Subject, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="hidden">
+                                        @Html.LabelFor(m => m.Date, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextAreaFor(m => m.Date, new { @class = "form-control", @value = DateTime.Now })
+                                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    
+                                  
+
+                                    <input type="submit" name="submit" value="submit" class="btn btn-primary" />
+                                </div>
+                            }
+                            <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+}

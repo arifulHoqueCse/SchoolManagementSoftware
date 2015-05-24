@@ -1,0 +1,142 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.EBook
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue ">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#home">E-Book List</a>
+                    </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#about">Add New E-Book</a>
+                    </li>
+                </ul>
+            </header>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+                        
+                        
+                        <table class="table table-bordered" id="example" class="display">
+                            <thead>
+                                <tr class="success"><td>Download Links</td><td>Book Name</td><td>Description</td><td>Action</td></tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr class="success"><td>Download Links</td><td>Book Name</td><td>Description</td><td>Action</td></tr>
+                            </tfoot>
+                            <tbody>
+
+                                @{
+                                    List<EBook> aEBookList = (List<EBook>)ViewBag.EBookList;
+
+                                foreach (EBook eBook in aEBookList)
+                                {
+                                    <tr>
+                                        <td><a href="@Url.Action("BookDownload", "Ebook", new { book = @eBook.EbookFileName })"><i class="icon-download"></i> Download</a></td>
+                                        <td>@eBook.Name</td>
+                                        <td>@eBook.BookDescription</td>
+                                        
+                                        <td>
+                                            <a href="@Url.Action("EditEBook", "EBook", new { id = @eBook.EbookId })">Edit</a> / <a href="@Url.Action("DeleteEbook","Ebook", new{id=@eBook.EbookId})">Delete</a>
+                                        </td>
+                                        
+                                    </tr>
+
+                                }
+
+                                }
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    <div id="about" class="tab-pane">
+                        <header class="panel-heading">
+                            New Book Entry Form
+                        </header>
+                        <div class="panel-body">
+                            @using (Html.BeginForm("Ebook", "EBook", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                            {
+                                <div class="form-horizontal" role="form">
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BookDescription, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextAreaFor(m => m.BookDescription, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.BookDescription, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Author, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.Author, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                  
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ClassId, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            <select name="classid" class="form-control">
+                                                @{
+                                List<Class> aClassList = new List<Class>();
+                                aClassList = (List<Class>)ViewBag.ClassList;
+                                foreach (Class aClass in aClassList)
+                                {
+                                    <option value="@aClass.ClassId">@aClass.Name</option>
+                                }
+                                                }
+                                            </select>
+
+                                            @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.EbookFileName, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            <input type="file" name="file"/>
+                                        </div>
+                                    </div>
+
+                                    <input type="submit" name="submit" value="submit" />
+                                </div>
+                            }
+                            <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+}

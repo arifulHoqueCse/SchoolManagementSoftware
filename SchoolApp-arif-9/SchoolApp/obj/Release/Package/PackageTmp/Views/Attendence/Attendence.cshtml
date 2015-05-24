@@ -1,0 +1,52 @@
+﻿@using SchoolApp.Models
+@using SchoolApp.Models.DbGateway
+@model SchoolApp.Models.Attendance
+
+@{
+    ViewBag.Title = "Attendence";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+      <div class="panel-body">
+            <div class="panel-body">
+
+                <div class="row state-overview">
+                    @{
+                        SectionDbGateway aSectionDbGateway = new SectionDbGateway();
+                        List<Class> aClasseList = new List<Class>();
+                        aClasseList = (List<Class>)ViewBag.ClassList;
+                        int schoolId = Convert.ToInt32(Session["school_id2133"]);
+                        foreach (Class aClass in aClasseList)
+                        {
+                            <div class="col-lg-3 col-sm-6">
+                                <section class="panel">
+                                    <div class="symbol terques">
+                                        <i class="icon-user"></i>
+                                    </div>
+                                    <div class="value">
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm" type="button">@aClass.Name<span class="caret"></span></button>
+                                            <ul role="menu" class="dropdown-menu">
+                                                @{
+                                                    List<Section> sectionlist = aSectionDbGateway.GetTheSection(aClass.ClassId, schoolId);
+                                                    foreach (Section sectionitem in sectionlist)
+                                                    {
+                                                        <li><a href="@Url.Action("AttendenceShit", "Attendence", new{classid=@aClass.ClassId, sectionid=@sectionitem.SectionId})">@sectionitem.SectionName</a></li>
+                                                    }
+                                                }
+                                            </ul>
+                                            <p>Attendence of @aClass.Name</p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

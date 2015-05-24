@@ -1,0 +1,29 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.NoticeBoard
+
+@{
+    ViewBag.Title = "NoticeDetailsView";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                <header class="panel-heading">
+                    Noticeboard
+                </header>
+                <table class="table table-bordered" width="100%">
+                    @{
+                        NoticeBoard aNoticeBoard = new NoticeBoard();
+                        aNoticeBoard = (NoticeBoard) ViewBag.NoticeDetails;
+                    }
+                    <tr style="text-align: center;"><td><h4>@aNoticeBoard.NoticeTitle</h4></td></tr>
+                    <tr><td>@aNoticeBoard.NoticeDescription</td></tr>
+                </table>
+
+            </div>
+        </section>
+    </div>
+</div>
+

@@ -1,0 +1,57 @@
+﻿@using SchoolApp.Models
+@using SchoolApp.Models.View
+@model SchoolApp.Models.Book
+
+@{
+    ViewBag.Title = "BookView";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                <header class="panel-heading">
+                    Book Information
+                </header>
+                <table class="table table-bordered" id="example" class="display">
+                    <thead>
+                        <tr class="success"><td>Book Name</td><td>Author Name</td></tr>
+                    </thead>
+
+                    <tfoot>
+                        <tr class="success"><td>Class Name</td><td>Subject Name</td></tr>
+                    </tfoot>
+                    <tbody>
+                        @{
+                            List<Book> bookViewList = new List<Book>();
+                            bookViewList = (List<Book>)ViewBag.StudentBook;
+
+                            foreach (Book aBook in bookViewList)
+                            {
+                                <tr>
+                                    <td>@aBook.name</td>
+                                    <td>@aBook.AuthorName</td>
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </div>
+</div>
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+}
+

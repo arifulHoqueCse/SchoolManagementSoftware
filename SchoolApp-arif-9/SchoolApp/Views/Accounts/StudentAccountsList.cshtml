@@ -1,0 +1,79 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Student
+
+@{
+    ViewBag.Title = "StudentAccountsList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue ">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#home">Student List</a>
+                    </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#about">Payment Status</a>
+                    </li>
+                    
+                   
+                   
+                </ul>
+            </header>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+
+                        <table class="table table-bordered" id="example" class="display">
+                            <thead>
+                                <tr class="success"><td>Picture</td> <td>Student Name</td><td>Reg. Number</td><td>Father Name</td><td>Action</td></tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr class="success"><td>Picture</td> <td>Student Name</td><td>Reg. Number</td><td>Father Name</td><td>Action</td></tr>
+                            </tfoot>
+                            <tbody>
+
+                                @{
+                                    List<Student> studentList = new List<Student>();
+                                    studentList = (List<Student>)ViewBag.StudentList;
+                                    foreach (Student student in studentList)
+                                    {
+                                        <tr>
+                                            <td><img src="../../Studentpicture/@student.ImagePath" width="50" height="50" class="img-rounded" /></td>
+                                            <td>@student.StudentName</td>
+                                            <td>@student.RegNo</td>
+                                            <td>@student.FatherName</td>
+                                            <td>
+                                             <a href="@Url.Action("StudentFeeSubmission", "Accounts", new { stuid = @student.StudentId })">Submit Fee</a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+                        <div class="alert-success">@ViewBag.SuccessAlert</div>
+                    </div>
+                   
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+}
+

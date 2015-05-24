@@ -1,0 +1,129 @@
+﻿@using Microsoft.Ajax.Utilities
+@using SchoolApp.Models
+@model SchoolApp.Models.View.TeacherUpdate
+
+@{
+    ViewBag.Title = "EditTeacher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Edit Employee Information
+            </header>
+            <div class="panel-body">
+                @using (Html.BeginForm("UpdateTeacherData", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                {
+
+                    Teacher aTeacher = (Teacher) ViewBag.EditTeacherInfo;
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal" role="form">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.TeacherName, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.TeacherName, new { @class = "form-control", @Value =aTeacher.TeacherName })
+                                @Html.ValidationMessageFor(model => model.TeacherName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        @Html.HiddenFor(m=>m.TeacherId, new{@Value=aTeacher.TeacherId})
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Birth Date</label>
+                            <div class="col-md-3 col-xs-11">
+                                <div data-date-viewmode="years" data-date-format="dd/mm/yyyy" data-date="12-02-2012" class="input-append date dpYears">
+                                    <input type="text" readonly="" value ="@aTeacher.BirthDay" size="16" class="form-control" name="birthday" id="birthday" required>
+                                    <span class="input-group-btn add-on">
+                                        <button class="btn btn-danger" type="button"><i class="icon-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Sex, new { @class = "col-md-2 control-label"})
+                            <div class="col-lg-4">
+                                <select id="sex" name="sex" class="form-control">
+                                    <option value="0">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            @Html.LabelFor(m => m.Religion, new { @class = "col-md-1 control-label" })
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(m => m.Religion, new { @class = "form-control", @Value=aTeacher.Religion })
+                                @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @Value = aTeacher.PhoneNumber })
+                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger"})
+                            </div>
+                            @Html.LabelFor(m => m.BloodGroup, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-3">
+                                <select name="bloodgroup" class="form-control" id="bloodgroup">
+                                    <option value="0">Select</option>
+                                    <option value="O+">O+</option>
+                                    <option value="A+">A+</option>
+                                    <option value="B+">B+</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ImagePath, new { @class = "col-md-2 control-label" })
+                            <div class="fileupload fileupload-new col-lg-5" data-provides="fileupload">
+                                <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                    <img src="../../Teacherprofile/@aTeacher.ImagePath" alt="" />
+                                </div>
+                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                <div>
+                                    <span class="btn btn-white btn-file">
+                                        <span class="fileupload-new"><i class="icon-paper-clip"></i> Select image</span>
+                                        <span class="fileupload-exists"><i class="icon-undo"></i> Change</span>
+                                        <input type="file" name="file"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @Value = aTeacher.Email, @readonly="" })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactAddress, new { @class = "col-md-2 control-label" })
+
+                            <div class="col-lg-5">
+                                <textarea class="form-control" id="contactaddress" name="ContactAddress" required>@aTeacher.ContactAddress</textarea>
+                                @Html.ValidationMessageFor(model => model.ContactAddress, "", new { @class = "text-danger"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div class="col-lg-5">
+                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @Value = aTeacher.Password })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+            </div>
+        </section>
+    </div>
+</div>
+

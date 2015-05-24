@@ -1,0 +1,103 @@
+﻿@using System.Data.SqlClient
+@using SchoolApp.Models
+@using SchoolApp.Models.DbGateway
+@model SchoolApp.Models.Class
+
+@{
+    ViewBag.Title = "RoutineView";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                        <div class="row">
+
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                @{
+                                    SqlConnectionManager aManager = new SqlConnectionManager();
+                                   Class aClass = new Class();
+                                    aClass = (Class)ViewBag.StudentClass;
+
+                                   
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingTwo">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#@aClass.ClassId" aria-expanded="True" aria-controls="collapseTwo">
+                                                        <h4>@aClass.Name Routine</h4>
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="@aClass.ClassId" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                                <div class="panel-body">
+                                                    <table class="table table-bordered">
+                                                        @{
+                                        string day = null;
+                                        for (int i = 1; i <= 7; i++)
+                                        {
+                                            if (i == 1)
+                                            {
+                                                day = "saturday";
+                                            }
+                                            else if (i == 2)
+                                            {
+                                                day = "sunday";
+                                            }
+                                            else if (i == 3)
+                                            {
+                                                day = "monday";
+                                            }
+                                            else if (i == 4)
+                                            {
+                                                day = "tuesday";
+                                            }
+                                            else if (i == 5)
+                                            {
+                                                day = "wednesday";
+                                            }
+                                            else if (i == 6)
+                                            {
+                                                day = "thursday";
+                                            }
+
+                                            <tr>
+                                                <td width="30%">@day</td>
+                                                <td>
+                                                    @{
+                                            string sqlquery = "SELECT tblClassRoutine.routine_id, tblClassRoutine.time_start, tblClassRoutine.time_end, tblClassRoutine.class_id, tblSubject.subject_id, tblSubject.name as subject_name from tblClassRoutine join tblClass on tblClassRoutine.class_id = tblClass.class_id Join tblSubject on tblSubject.subject_id = tblClassRoutine.subject_id where tblClass.school_id =1 AND tblClassRoutine.class_day = '" + day + "' AND tblClassRoutine.class_id = " + aClass.ClassId + "";
+                                            SqlCommand aCommand = new SqlCommand(sqlquery, aManager.GetConnection());
+                                            SqlDataReader aReader = aCommand.ExecuteReader();
+                                            while (aReader.Read())
+                                            {
+                                                <td>
+                                                    <ul class="nav navbar-nav">
+                                                        <li role="presentation" class="dropdown">
+                                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                                                                @aReader["subject_name"] (@aReader["time_start"]-@aReader["time_end"]) 
+                                                            </a>
+                                                       
+                                                        </li>
+                                                    </ul>
+                                                    </td>
+                                            }
+                                            aManager.CloseConnection();
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                                        }
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                }
+                            </div>
+
+                        </div>
+            </div>
+        </section>
+    </div>
+</div>
+

@@ -1,0 +1,54 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.HomeWork
+
+@{
+    ViewBag.Title = "ViewHomeWork";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+           
+            <div class="panel-body">
+                <div class="tab-content">
+                 
+
+                        <table class="table table-bordered" id="example" class="display">
+                            <thead>
+                                <tr class="success"><td>Subject</td> <td>Teacher Name</td><td>Submission Date</td><td>Action</td></tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr class="success"><td>Subject</td> <td>Teacher Name</td><td>Submission Date</td><td>Action</td></tr>
+                            </tfoot>
+                            <tbody>
+
+                                @{
+                                    List<HomeWork> HomeWorkList = new List<HomeWork>();
+                                    HomeWorkList = (List<HomeWork>)ViewBag.HomeWork;
+
+                                    foreach (HomeWork homework in HomeWorkList)
+                                    {
+
+                                        <tr>
+                                            <td>@homework.Title</td>
+                                           <td>@homework.TeacherName</td>
+                                            <td>@homework.SubmissionDate</td>
+                                            <td><a href="@Url.Action("HomeWorkDetails","Student", new{hwid=@homework.HwId})">Details</a></td>
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+                        
+                   
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

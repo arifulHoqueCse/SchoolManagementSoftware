@@ -1,0 +1,126 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Student
+
+@{
+    ViewBag.Title = "EditStudentProfile";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+@{
+    Student aStudent = new Student();
+    aStudent = (Student)ViewBag.SpecificStudent;
+
+}
+<div class="row">
+    <aside class="profile-nav col-lg-3">
+        <section class="panel">
+            <div class="user-heading round">
+                <a href="#">
+                    <img src="../../Studentpicture/@aStudent.ImagePath" alt="">
+                </a>
+                <h1>@Html.Label(aStudent.StudentName)</h1>
+                <p>@Html.Label(aStudent.PhoneNumber)</p>
+            </div>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="@Url.Action("StudentProfile", "Student")"> <i class="icon-user"></i> Profile</a></li>
+                <li><a href="@Url.Action("EditStudentProfile", "Student", new { studentid = @aStudent.StudentId })"> <i class="icon-edit"></i> Edit profile</a></li>
+            </ul>
+        </section>
+    </aside>
+    <aside class="profile-info col-lg-9">
+        <section class="panel">
+            <div class="panel-body bio-graph-info">
+                <h1>Edit Profile</h1>
+                <div class="row">
+                    <div class="panel-body">
+                        @using (Html.BeginForm("EditStudentProfile", "Student", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                        {
+                            <div class="form-horizontal" role="form">
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                
+                                @Html.HiddenFor(m => m.StudentId, new { @Value = aStudent.StudentId })
+                                @Html.HiddenFor(m => m.SchoolId, new { @Value = aStudent.SchoolId })
+                                @Html.HiddenFor(m => m.ClassId, new { @Value = aStudent.ClassId })
+                                
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.BloodGroup, new { @class = "col-md-2 control-label" })
+                                    <div class="col-lg-3">
+                                        <select name="bloodgroup" class="form-control" id="bloodgroup">
+                                            <option value="0">Select</option>
+                                            <option value="O+">O+</option>
+                                            <option value="A+">A+</option>
+                                            <option value="B+">B+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                    <div class="col-lg-5">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @Value = aStudent.Email })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                    <div class="col-lg-5">
+                                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @Value = aStudent.Password })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <input type="submit" name="submit" value="submit" />
+                            </div>
+                        }
+                        <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+                    </div></div>
+            </div>
+        </section>
+        <section>
+            <div class="row">
+                <div class="panel">
+                    <div class="col-lg-9">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"> <span class="glyphicon glyphicon-list-alt"></span><b>Notice</b></div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        @{
+                                            List<NoticeBoard> noticeBoardList = new List<NoticeBoard>();
+                                            noticeBoardList = (List<NoticeBoard>)ViewBag.NoticeList;
+                                            <ul class="notice">
+                                                @foreach (NoticeBoard noticeBoard in noticeBoardList)
+                                                {
+                                                    <li class="news-item">@noticeBoard.NoticeTitle <a href="#">Read more...</a></li>
+                                                }
+                                            </ul>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </aside>
+</div>
+@section myscript
+{
+    <script src="../../asset/tickerjs/jquery.bootstrap.newsbox.min.js"></script>
+    <script>
+        $(function () {
+            $(".notice").bootstrapNews({
+                newsPerPage: 4,
+                autoplay: true,
+                pauseOnHover: true,
+                navigation: false,
+                direction: 'down',
+                newsTickerInterval: 2500,
+                onToDo: function () {
+                    //console.log(this);
+                }
+            });
+        });
+    </script>
+}
+

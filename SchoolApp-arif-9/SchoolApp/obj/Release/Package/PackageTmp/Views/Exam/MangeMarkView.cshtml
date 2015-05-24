@@ -1,0 +1,85 @@
+﻿@using SchoolApp.Models
+@using SchoolApp.Models.View
+@model SchoolApp.Models.Mark
+
+@{
+    ViewBag.Title = "MangeMarkView";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue "></header>
+            <div class="panel-body">
+                <div class="tab-content">
+
+
+                    <header class="panel-heading">
+                        Exam Entry Form
+                    </header>
+                    <div class="panel-body">
+                        @using (Html.BeginForm("MangeMarkView", "Exam", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-inline" role="form">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(m => m.ClassId, new { @Value = ViewBag.ClassId })
+                                @Html.HiddenFor(m => m.StudentId, new { @Value = ViewBag.StudentId })
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ExamId)
+
+                                    <select name="examid" class="form-control">
+                                        @{
+                            List<Exam> aExamList = new List<Exam>();
+                            aExamList = (List<Exam>)ViewBag.ExamList;
+                            foreach (Exam aExam in aExamList)
+                            {
+                                <option value="@aExam.ExamId">@aExam.Name</option>
+                            }
+                                        }
+                                    </select>
+
+                                    @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+
+                                </div>
+                                <input type="submit" name="submit" value="submit" class="btn btn-primary" />
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+                <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+            </div>
+
+        </section>
+    </div>
+</div>
+
+@{
+    if (ViewBag.ResultList != null)
+    {
+        <div class="row">
+
+            <div class="col-md-12 col-lg-12">
+                <section class="panel">
+                    <table class="table table-bordered">
+                        @{
+
+        List<ExamResultView> aResultViewList = new List<ExamResultView>();
+        aResultViewList = (List<ExamResultView>)ViewBag.ResultList;
+        <tr><td>Subject Name</td><td>Mark Obtain</td><td>Mark total</td><td>Attendence</td></tr>
+        foreach (ExamResultView examResultView in aResultViewList)
+        {
+            <tr><td>@examResultView.SubjectName</td><td>@examResultView.MarkObtain</td><td>@examResultView.MarkTotal</td><td>@examResultView.Attendence</td></tr>
+        }
+
+                        }
+                    </table>
+                </section>
+            </div>
+        </div>
+    }
+}

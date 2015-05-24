@@ -1,0 +1,46 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Email
+
+@{
+    ViewBag.Title = "ViewStudentEmail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue "></header>
+            <div class="panel-body">
+                <div class="tab-content">
+
+
+                    <header class="panel-heading">
+                        View Email
+                    </header>
+
+                    <div class="panel-body">
+                        @{
+
+                            Email aEmail = new Email();
+                            aEmail = ViewBag.SpecificEmail;
+                        }
+                        <h3>Subject</h3>
+                        <p>@aEmail.Subject</p>
+
+                        <br>
+
+                        <h3>Message</h3>
+                        <p>@aEmail.Message</p>
+
+
+                        <tr>
+                            <td><a href="@Url.Action("ReplyStudentEmail", "Student", new { id = @aEmail.EmailId })" class="btn btn-primary">Reply</a></td>
+                        </tr>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

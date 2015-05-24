@@ -1,0 +1,71 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.ExamRoutine
+
+@{
+    ViewBag.Title = "ExamRoutineView";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            
+            <div class="panel-body">
+                <div class="tab-content">
+                    @{
+                        ExamRoutine aExamRoutineTitle = new ExamRoutine();
+                        aExamRoutineTitle = @ViewBag.ExamRoutineTitle;
+                 }
+                    <h3>Routine Of @aExamRoutineTitle.ExamTitle</h3>
+                        <table class="table table-bordered" id="example" class="display">
+                            <thead>
+                                <tr class="success"><td>Subject</td> <td>Date</td><td>Day</td><td>Time</td></tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr class="success"><td>Subject</td> <td>Date</td><td>Day</td><td>Time</td></tr>
+                            </tfoot>
+                            <tbody>
+
+                                @{
+                                    List<ExamRoutine> aExamRoutine = new List<ExamRoutine>();
+                                    aExamRoutine = (List<ExamRoutine>)ViewBag.ExamRoutine;
+                                   
+                                    foreach (ExamRoutine aRoutine in aExamRoutine)
+                                    {
+                                        <tr>
+                                            <td>@aRoutine.SubjectName</td>
+                                            <td>@aRoutine.ExamDate</td>
+                                            <td>@aRoutine.ExamDay</td>
+                                            <td>@aRoutine.ExamTime</td>
+
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+
+                   
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+
+
+}
+

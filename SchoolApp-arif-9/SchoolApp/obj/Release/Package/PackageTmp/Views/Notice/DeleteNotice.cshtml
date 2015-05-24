@@ -1,0 +1,16 @@
+﻿@model SchoolApp.Models.NoticeBoard
+
+@{
+    ViewBag.Title = "DeleteNotice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="panel-body">
+        <div class="alert alert-danger">
+            Are your sure delete the Notice
+        </div>
+        <a href="@Url.Action("DeleteNoticeConfirm", "Notice", new { nid = @ViewBag.NoticeId })" class="btn btn-danger">Delete<br /></a>
+    </div>
+</div>
+

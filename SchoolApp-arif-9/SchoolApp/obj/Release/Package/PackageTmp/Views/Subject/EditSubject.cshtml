@@ -1,0 +1,70 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Subject
+
+@{
+    ViewBag.Title = "EditSubject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Subject</h2>
+
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+           
+            <div class="panel-body">
+                <div class="tab-content">
+
+                        <div class="panel-body">
+                            @using (Html.BeginForm("UpdateSubjectData", "Subject", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                            {
+                                 Subject aSubject = (Subject)ViewBag.EditSubjectInfo;
+                                <div class="form-horizontal" role="form">
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @Value = aSubject.Name })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ClassId, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            <select name="classid" class="form-control">
+                                                @{
+                                                    List<Class> aClassList = new List<Class>();
+                                                    aClassList = (List<Class>)ViewBag.ClassList;
+                                                    foreach (Class aClass in aClassList)
+                                                    {
+                                                        <option value="@aClass.ClassId">@aClass.Name</option>
+                                                    }
+                                                }
+                                            </select>
+
+                                            @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="hidden">
+                                            @Html.LabelFor(m => m.SubjectId, new { @class = "col-md-2 control-label" })
+                                            <div class="col-lg-5">
+                                                @Html.TextBoxFor(m => m.SubjectId, new { @class = "form-control", @Value = aSubject.SubjectId })
+                                                @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="submit" name="submit" value="submit" />
+                                </div>
+                            }
+                            <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+                        </div>
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+

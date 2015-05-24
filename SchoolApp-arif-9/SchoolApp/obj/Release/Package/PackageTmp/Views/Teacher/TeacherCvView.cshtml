@@ -1,0 +1,64 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Teacher
+
+@{
+    ViewBag.Title = "TeacherCvView";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+@{
+    Teacher aTeacher = new Teacher();
+    aTeacher = (Teacher)ViewBag.SpecificTeacher;
+
+}
+<div class="ProfileCv">
+    <div id="some">
+        <img style="height: 200px;width: 200px" src="../../Teacherprofile/@aTeacher.ImagePath" alt="">
+        <br /><br /><br />
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><span>:</span>@aTeacher.TeacherName</td>
+            </tr>
+
+
+
+            <tr>
+                <td>Employee Code</td>
+                <td><span>:</span>@aTeacher.EmployeeCode</td>
+            </tr>
+
+
+            <tr>
+                <td>Date Of Birth</td>
+                <td><span>:</span>@aTeacher.BirthDay</td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td><span>:</span>@aTeacher.Sex</td>
+            </tr>
+            <tr>
+                <td>Religion</td>
+                <td><span>:</span>@aTeacher.Religion</td>
+            </tr>
+            <tr>
+                <td>Blood Group</td>
+                <td><span>:</span>@aTeacher.BloodGroup/td>
+            </tr>
+            <tr>
+                <td>Contact Address</td>
+                <td><span>:</span>@aTeacher.ContactAddress</td>
+            </tr>
+            <tr>
+                <td>Phone Number</td>
+                <td><span>:</span>@aTeacher.PhoneNumber</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><span>:</span>@aTeacher.Email</td>
+            </tr>
+
+        </table>
+    </div>
+
+</div>
+

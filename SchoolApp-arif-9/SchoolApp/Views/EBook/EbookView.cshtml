@@ -1,0 +1,57 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.EBook
+
+@{
+    ViewBag.Title = "EbookView";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                <header class="panel-heading">
+                    Book Information
+                </header>
+                <table class="table table-bordered" id="example" class="display">
+                    <thead>
+                        <tr class="success"><td>Book Name</td><td>Author Name</td><td>Download Link</td></tr>
+                    </thead>
+
+                    <tfoot>
+                        <tr class="success"><td>Class Name</td><td>Subject Name</td><td>Download Link</td></tr>
+                    </tfoot>
+                    <tbody>
+                        @{
+                            List<EBook> eBookViewList = new List<EBook>();
+                            eBookViewList = (List<EBook>) ViewBag.EbookList;
+
+                            foreach (EBook aEBook in eBookViewList)
+                            {
+                                <tr>
+                                    <td>@aEBook.Name</td>
+                                    <td>@aEBook.Author</td>
+                                    <td>@aEBook.EbookFileName</td>
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </div>
+</div>
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+}
+

@@ -1,0 +1,62 @@
+﻿@using SchoolApp.Models.View
+@model SchoolApp.Models.View.AttendenceView
+
+@{
+    ViewBag.Title = "AttendenceViewDetail";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                <header class="panel-heading">
+                    Noticeboard
+                </header>
+                <table class="table table-bordered" id="example" class="display">
+                    <thead>
+                        <tr class="success"><td>Student Name</td> <td>Student Roll</td><td>Date</td><td>Status</td></tr>
+                    </thead>
+
+                    <tfoot>
+                        <tr class="success"><td>Student Name</td> <td>Student Roll</td><td>Date</td><td>Status</td></tr>
+                    </tfoot>
+                    <tbody>
+
+                        @{
+                            List<AttendenceView> attendenceViewList = new List<AttendenceView>();
+                            attendenceViewList = (List<AttendenceView>)ViewBag.StudentAttendence;
+                            foreach (AttendenceView attendenceView in attendenceViewList)
+                            {
+                                string status = null;
+                                if (attendenceView.AttendenceStatus == 1)
+                                {
+                                    status = "Present";
+                                }
+                                else
+                                {
+                                    status = "Absent";
+                                }
+                                <tr><td>@attendenceView.StudentName</td><td>@attendenceView.StudentRoll</td><td>@attendenceView.AttendenceDate</td><td>@status</td></tr>
+                            }
+
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </div>
+</div>
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+}
+

@@ -1,0 +1,215 @@
+﻿@using SchoolApp.Models.View
+@model SchoolApp.Models.Admin
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int schoolId = Convert.ToInt32(Session["school_id2133"]);
+}
+<div class="row state-overview">
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol terques">
+                <a href="@Url.Action("Index", "Student")">
+                    <img src="../img/icon-student.png" alt="" width="40" height="40">
+                </a>
+            </div>
+            <div class="value">
+                <h4>Student</h4>
+                <p>
+                    Management
+                </p>
+
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol red">
+                <a href="@Url.Action("Index", "Teacher")">
+                    <img src="../img/icon-teacher.png" alt="" width="40" height="40">
+                </a>
+            </div>
+            <div class="value">
+                <h4>Teacher</h4>
+                <p>
+                    Management
+                </p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol terques">
+                <a href="@Url.Action("ClassInformation", "Class")">
+                    <img src="../img/icon-class.png" alt="" width="40" height="40">
+                </a>
+            </div>
+            <div class="value">
+                <h4>Class</h4>
+                <p>
+                    Management
+                </p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol red">
+                <a href="#">
+                    <img src="../img/icon-subject.png" alt="" width="40" height="40">
+                </a>
+            </div>
+            <div class="value">
+                <h4>Subject</h4>
+                <p>
+                    Management
+                </p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol terques">
+                <a href="@Url.Action("Routine", "ClassRoutine")">
+                    <img src="../img/icon-shedule.png" alt="" width="40" height="40">
+                </a>
+            </div>
+            <div class="value">
+                <h4>Shedule</h4>
+                <p>
+                    Management
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol red">
+                <a href="@Url.Action("Exam", "Exam")">
+                    <img src="../img/icon-exam.png" alt="" width="40" height="40">
+                </a>
+            </div>
+            <div class="value">
+                <h4>Exam</h4>
+                <p>
+                    Management
+                </p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol terques">
+                <a href="@Url.Action("Library", "Library")">
+                    <img src="../img/icon-library.png" alt="" width="40" height="40">
+                </a>
+            </div>
+            <div class="value">
+                <h4>Library</h4>
+                <p>
+                    Management
+                </p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol red">
+                <a href="@Url.Action("Index", "Book")">
+                    <img src="../img/icon-book.png" alt="" width="40" height="40">
+                </a>
+            </div>
+            <div class="value">
+                <h4>Book</h4>
+                <p>
+                    Management
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol terques">
+                <a href="@Url.Action("Ebook", "Ebook")">
+                    <img src="../img/icon-ebook.png" alt="" width="40" height="40">
+                </a>
+            </div>
+            <div class="value">
+                <h4>E-Book</h4>
+                <p>
+                    Management
+                </p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol red">
+                <a href="@Url.Action("Notice", "Notice")">
+                    <img src="../img/icon-noticeboard.png" alt="" width="40" height="40">
+                </a>
+            </div>
+            <div class="value">
+                <h4>Notice</h4>
+                <p>
+                    Management
+                </p>
+            </div>
+        </section>
+    </div>
+    
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol terques">
+                <a href="@Url.Action("PlayBell", "Main")">
+                    <img src="../img/bell.png" alt="" width="40" height="40">
+                </a>
+            </div>
+            <div class="value">
+                <h4>Play Bell</h4>
+                <p>
+                    Click To Play
+                </p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol red">
+                <a href="@Url.Action("PlayNationSong", "Main")">
+                    <i class="icon-flag-alt"></i>
+                </a>
+            </div>
+            <div class="value">
+                <h4>National Anthem</h4>
+                <p>
+                    Click To Play
+                </p>
+            </div>
+        </section>
+    </div>
+    @{
+        int UserLabel = Convert.ToInt32(Session["userlevel301"]);
+        if (UserLabel != 2 && UserLabel != 3)
+        {
+            <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol terques">
+                <a href="@Url.Action("SchoolSettigs", "Main", new { schoolid = @schoolId })">
+                    <img src="../img/icon-setting.png" alt="" width="40" height="40">
+                </a>
+            </div>
+            <div class="value">
+                <h4>Setting</h4>
+                <p>
+                    Management
+                </p>
+            </div>
+        </section>
+    </div>
+        }
+    }
+    
+</div>

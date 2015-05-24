@@ -1,0 +1,106 @@
+﻿@using SchoolApp.Models
+@using SchoolApp.Models.View
+@model SchoolApp.Models.Class
+
+@{
+    ViewBag.Title = "ClassInformation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue ">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#home">Class List</a>
+                    </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#about">Add New Class</a>
+                    </li>
+                </ul>
+            </header>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+                        <table class="table">
+                            <tr><td>Class Name</td><td>Class Teacher Name</td></tr>
+                            @{
+                                List<ClassListView> aClassListViews = new List<ClassListView>();
+                                aClassListViews = (List<ClassListView>)ViewBag.ClassList;
+                                foreach (ClassListView aClassListView in aClassListViews)
+                                {
+                                    <tr><td>@aClassListView.ClassName</td><td>@aClassListView.TeacherName</td></tr>
+                                }
+                            }
+                        </table>
+                        @ViewBag.SaveClass
+                    </div>
+                    <div id="about" class="tab-pane">
+                        <header class="panel-heading">
+                            Add New Class
+                        </header>
+                        <div class="panel-body">
+                            @using (Html.BeginForm("ClassInformation", "Class", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                            {
+                                <div class="form-horizontal" role="form">
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.NameNumeric, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.NameNumeric, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.NameNumeric, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.TeacherId, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            <select name="teacherid" class="form-control">
+                                                @{
+                                List<Teacher> aTeacherList = new List<Teacher>();
+                                aTeacherList = (List<Teacher>)ViewBag.TeacherList;
+                                foreach (Teacher aTeacher in aTeacherList)
+                                {
+                                    <option value="@aTeacher.TeacherId">@aTeacher.TeacherName</option>
+                                }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.SectionId, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            <select name="sectionid" class="form-control">
+                                                @{
+                                List<Section> sectionList = new List<Section>();
+                                sectionList = (List<Section>)ViewBag.SectionList;
+                                foreach (Section aSection in sectionList)
+                                {
+                                    <option value="@aSection.SectionId">@aSection.SectionName</option>
+                                }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <input type="submit" name="submit" value="submit" class="btn btn-primary" />
+                                </div>
+                            }
+                            <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+

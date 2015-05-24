@@ -1,0 +1,65 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.Email
+
+@{
+    ViewBag.Title = "ReplyTeacherEmail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+           
+            <div class="panel-body">
+                <div class="tab-content">
+                   
+                   
+                        <header class="panel-heading">
+                            Email
+                        </header>
+                    <div class="panel-body">
+                        @{ 
+                           Email aEmail =new Email();
+                            aEmail = ViewBag.StudentIdentity;
+                        }
+                       
+                      
+                        @using (Html.BeginForm("ReSendTeacherEmail", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                        {
+                            <div class="form-horizontal" role="form">
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-group">
+                                    <p>To : </p>
+                                    <input type="text" name="studentidentity" value="@aEmail.StudentIdentity" />
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Subject, new { @class = "col-md-2 control-label" })
+                                    <div class="col-lg-5">
+                                        @Html.TextBoxFor(m => m.Subject, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
+                                    <div class="col-lg-5">
+                                        @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                <input type="submit" name="submit" value="submit" class="btn btn-primary" />
+                            </div>
+                        }
+                        <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

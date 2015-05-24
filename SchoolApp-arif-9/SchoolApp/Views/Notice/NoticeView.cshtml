@@ -1,0 +1,52 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.NoticeBoard
+
+@{
+    ViewBag.Title = "NoticeView";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                <header class="panel-heading">
+                    Noticeboard
+                </header>
+                <table class="table table-bordered" id="example" class="display">
+                    <thead>
+                        <tr class="success"><td>Notice Title</td> <td>Notice Description</td><td>Details</td></tr>
+                    </thead>
+
+                    <tfoot>
+                        <tr class="success"><td>Notice Title</td> <td>Notice Description</td><td>Details</td></tr>
+                    </tfoot>
+                    <tbody>
+
+                            @{
+                                List<NoticeBoard> aNoticeBoards = new List<NoticeBoard>();
+                                aNoticeBoards = (List<NoticeBoard>)ViewBag.NoticeList;
+                                foreach (NoticeBoard aNoticeBoard in aNoticeBoards)
+                                {
+                                    <tr><td>@aNoticeBoard.NoticeTitle</td><td>@aNoticeBoard.NoticeDescription</td><td><a href="@Url.Action("NoticeDetailsView", "Notice", new { ntid = @aNoticeBoard.NoticeId })" class="btn btn-small btn-primary"> Read more</a></td></tr>
+                                }
+                            }
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </div>
+</div>
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+}
+

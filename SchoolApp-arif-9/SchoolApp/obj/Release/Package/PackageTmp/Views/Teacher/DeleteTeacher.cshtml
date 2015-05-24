@@ -1,0 +1,15 @@
+﻿@model SchoolApp.Models.Teacher
+
+@{
+    ViewBag.Title = "DeleteTeacher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="panel-body">
+        <div class="alert alert-danger">
+            Are your sure delete the student
+        </div>
+        <a href="@Url.Action("DeleteTeacherConfirm", "Teacher", new { id = @ViewBag.teacherId })" class="btn btn-danger">Delete<br /></a>
+    </div>
+</div>
+

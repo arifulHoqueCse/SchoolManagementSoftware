@@ -1,0 +1,111 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.NoticeBoard
+
+@{
+    ViewBag.Title = "Notice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-12 col-lg-12">
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue ">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#home">Notice List</a>
+                    </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#about">Add New Notice</a>
+                    </li>
+                </ul>
+            </header>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+
+                        <table class="table table-bordered" id="example" class="display">
+                            <thead>
+                                <tr class="success"><td>Notice Title</td> <td>Notice Description</td><td>Published Date</td><td>Action</td></tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr class="success"><td>Notice Title</td> <td>Notice Description</td><td>Published Date</td><td>Action</td></tr>
+                            </tfoot>
+                            <tbody>
+
+                                @{
+                                    List<NoticeBoard> aNoticeBoards = new List<NoticeBoard>();
+                                    aNoticeBoards = (List<NoticeBoard>)ViewBag.NoticeList;
+                                    foreach (NoticeBoard aNoticeBoard in aNoticeBoards)
+                                    {
+                                        <tr>
+                                            <td>@aNoticeBoard.NoticeTitle</td>
+                                            <td>@aNoticeBoard.NoticeDescription</td>
+                                            <td>@aNoticeBoard.NoticeTimeStamp</td>
+                                            <td>
+                                                
+
+                                               <a href="@Url.Action("DeleteNotice", "Notice", new{ntid=@aNoticeBoard.NoticeId})" class="btn btn-danger">Delete</a>
+                                               
+                                            </td>
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div id="about" class="tab-pane">
+                        <header class="panel-heading">
+                            Add new notice
+                        </header>
+                        <div class="panel-body">
+                            @using (Html.BeginForm("Notice", "Notice", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                            {
+                                <div class="form-horizontal" role="form">
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.NoticeTitle, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextBoxFor(m => m.NoticeTitle, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.NoticeTitle, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.NoticeDescription, new { @class = "col-md-2 control-label" })
+                                        <div class="col-lg-5">
+                                            @Html.TextAreaFor(m => m.NoticeDescription, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.NoticeDescription, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+
+                                    <input type="submit" name="submit" value="submit" />
+                                </div>
+                            }
+                            <div class="col-lg-8">@ViewBag.SuccessAlert</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section myscript
+{
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+    
+    
+}
+

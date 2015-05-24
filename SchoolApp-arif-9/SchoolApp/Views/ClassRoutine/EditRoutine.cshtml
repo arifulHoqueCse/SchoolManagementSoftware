@@ -1,0 +1,135 @@
+﻿@using SchoolApp.Models
+@model SchoolApp.Models.ClassRoutine
+
+@{
+    ViewBag.Title = "EditRoutine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+<div class="col-md-12 col-lg-12">
+    <section class="panel">
+        <header class="panel-heading">
+           Routine Update
+        </header>
+        <div class="panel-body">
+            @using (Html.BeginForm("EditRoutine", "ClassRoutine", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+            {
+                <div class="form-horizontal" role="form">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input type="hidden" value="@ViewBag.RoutineId" name="routineid"/>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ClassId, new { @class = "col-md-2 control-label" })
+                        <div class="col-lg-5">
+                            <select name="classid" class="form-control">
+                                @{
+                List<Class> aClassList = new List<Class>();
+                aClassList = (List<Class>)ViewBag.ClassList;
+                foreach (Class aClass in aClassList)
+                {
+                    <option value="@aClass.ClassId">@aClass.Name</option>
+                }
+                                }
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SubjectId, new { @class = "col-md-2 control-label" })
+                        <div class="col-lg-5">
+                            <select class="form-control" style="width:100%;" name="subjectid">
+                                @{
+                List<Subject> aSubjectList = new List<Subject>();
+                aSubjectList = (List<Subject>)ViewBag.SubjectList;
+                foreach (Subject aSubject in aSubjectList)
+                {
+                    <option value="@aSubject.SubjectId">@aSubject.Name</option>
+                }
+                                }
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ClassDay, new { @class = "col-md-2 control-label" })
+                        <div class="col-lg-5">
+                            <select class="form-control" style="width:100%;" name="classday">
+                                <option value="sunday">sunday</option>
+                                <option value="monday">monday</option>
+                                <option value="tuesday">tuesday</option>
+                                <option value="wednesday">wednesday</option>
+                                <option value="thursday">thursday</option>
+                                <option value="friday">friday</option>
+                                <option value="saturday">saturday</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.TimeStart, new { @class = "col-md-2 control-label" })
+                        <div class="col-lg-5">
+                            <select class="form-control" name="timestart">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <select class="form-control" name="startampm">
+                                <option value="am">am</option>
+                                <option value="pm">pm</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.TimeStart, new { @class = "col-md-2 control-label" })
+                        <div class="col-lg-5">
+                            <select class="form-control" name="timeend">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <select class="form-control" name="endampm">
+                                <option value="am">am</option>
+                                <option value="pm">pm</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="alert-success">@ViewBag.UpdateSuccses</div>
+        </div>
+
+    </section>
+</div>
+</div>
+
+
+
